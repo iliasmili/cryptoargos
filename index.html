@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argos — When Data Meets Decision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- TICKER -->
+<div id="ticker-bar"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+      <ellipse cx="15" cy="15" rx="11" ry="7.5" stroke="rgba(62,140,255,0.7)" stroke-width="1.2"/>
+      <circle cx="15" cy="15" r="4.2" fill="rgba(39,76,255,0.55)" stroke="rgba(62,140,255,0.85)" stroke-width="0.9"/>
+      <circle cx="15" cy="15" r="2" fill="rgba(190,215,255,0.95)"/>
+      <circle cx="16.2" cy="13.8" r="0.75" fill="rgba(255,255,255,0.65)"/>
+    </svg>
+    <span class="nav-name">ARGOS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how"          data-en="How it works"  data-el="Πώς λειτουργεί">How it works</a></li>
+    <li><a href="#strategy"     data-en="Strategy"      data-el="Στρατηγική">Strategy</a></li>
+    <li><a href="#course"       data-en="Course"        data-el="Μάθημα">Course</a></li>
+    <li><a href="#community" data-en="Community"     data-el="Κοινότητα">Community</a></li>
+    <li><a href="#contact"      data-en="Contact"       data-el="Επικοινωνία">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn"        onclick="setLang('el')">ΕΛ</button>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how"          onclick="closeMenu()" data-en="How it works"  data-el="Πώς λειτουργεί">How it works</a>
+  <a href="#strategy"     onclick="closeMenu()" data-en="Strategy"      data-el="Στρατηγική">Strategy</a>
+  <a href="#course"       onclick="closeMenu()" data-en="Course"        data-el="Μάθημα">Course</a>
+  <a href="#community" onclick="closeMenu()" data-en="Community"     data-el="Κοινότητα">Community</a>
+  <a href="#contact"      onclick="closeMenu()" data-en="Contact"       data-el="Επικοινωνία">Contact</a>
+</div>
+
+<!-- DISCLAIMER BANNER -->
+<div class="disclaimer-banner">
+  <span>⚠</span>
+  <span data-en="Argos does not provide financial advice. All signals are automated system outputs. Trading involves significant risk." data-el="Το Argos δεν παρέχει οικονομικές συμβουλές. Όλα τα σήματα είναι αυτοματοποιημένες έξοδοι συστήματος. Το trading ενέχει σημαντικό κίνδυνο.">Argos does not provide financial advice. All signals are automated system outputs. Trading involves significant risk.</span>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span><span data-en="Live market intelligence" data-el="Ζωντανή ανάλυση αγορών">Live market intelligence</span></div>
+      <p class="hero-slogan" data-en="— when data meets decision" data-el="— όταν τα δεδομένα συναντούν την απόφαση">— when data meets decision</p>
+      <h1 class="hero-title">
+        <span data-en="100 eyes" data-el="100 μάτια">100 eyes</span><br>
+        <span class="line-accent" data-en="on the" data-el="στις">on the</span><br>
+        <span data-en="markets." data-el="αγορές.">markets.</span>
+      </h1>
+      <p class="hero-desc" data-en="Argos watches the crypto markets 24/7 — scanning for high-probability LONG & SHORT setups, powered by rule-based strategy and machine learning. No emotions. No guessing." data-el="Το Argos παρακολουθεί τις αγορές κρυπτονομισμάτων 24/7 — εντοπίζοντας θέσεις LONG & SHORT υψηλής πιθανότητας, με βάση συστήματα κανόνων και μηχανική μάθηση.">Argos watches the crypto markets 24/7 — scanning for high-probability LONG &amp; SHORT setups, powered by rule-based strategy and machine learning. No emotions. No guessing.</p>
+      <div class="hero-cta">
+        <a href="#how"     class="btn-hero"  data-en="See how it works →" data-el="Πώς λειτουργεί →">See how it works →</a>
+        <a href="#contact" class="btn-ghost" data-en="Get in touch"        data-el="Επικοινωνία">Get in touch</a>
+      </div>
+      <p class="hero-disclaimer" data-en="Not financial advice. For educational and analytical purposes only." data-el="Δεν αποτελεί οικονομική συμβουλή. Μόνο για εκπαιδευτικούς σκοπούς.">Not financial advice. For educational and analytical purposes only.</p>
+
+      <!-- LIVE MINI CHART — mobile only -->
+      <div class="hero-live-chart" id="heroLiveChart">
+        <div class="hlc-header">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="hlc-pair">BTC/USDT</span>
+            <span class="hlc-tf">30m</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="hlc-price" id="hlc-price">—</span>
+            <span class="hlc-chg" id="hlc-chg"></span>
+          </div>
+        </div>
+        <canvas id="hlcCanvas" height="70"></canvas>
+        <div class="hlc-stats">
+          <div class="hlc-stat"><span class="hlc-stat-l">RSI</span><span class="hlc-stat-v cv-g" id="hlc-rsi">—</span></div>
+          <div class="hlc-stat"><span class="hlc-stat-l">Prob ↑</span><span class="hlc-stat-v cv-b" id="hlc-prob">54.1%</span></div>
+          <div class="hlc-stat"><span class="hlc-stat-l">Signal</span><span class="hlc-stat-v" id="hlc-sig">—</span></div>
+          <div class="hlc-stat"><span class="hlc-stat-l">Win %</span><span class="hlc-stat-v cv-g">61%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="dashboard-mockup">
+        <div class="mockup-topbar">
+          <div class="dot" style="background:#FF5F57"></div>
+          <div class="dot" style="background:#FFBD2E;margin-left:4px"></div>
+          <div class="dot" style="background:#28CA41;margin-left:4px"></div>
+          <span class="mockup-title">ARGOS · BTC/USDT · 30m</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-stats">
+            <div class="mstat"><div class="mstat-label">Price</div><div class="mstat-value cv-w" id="m-price">—</div></div>
+            <div class="mstat"><div class="mstat-label">RSI 14</div><div class="mstat-value cv-g">42.3</div></div>
+            <div class="mstat"><div class="mstat-label">Prob ↑</div><div class="mstat-value cv-b">54.1%</div></div>
+            <div class="mstat"><div class="mstat-label">Win rate</div><div class="mstat-value cv-g">61%</div></div>
+          </div>
+          <div class="mockup-chart">
+            <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="width:100%;height:100%">
+              <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(42,79,255,0.28)"/><stop offset="100%" stop-color="rgba(42,79,255,0)"/></linearGradient></defs>
+              <path d="M0,90 L20,85 L40,88 L60,70 L80,75 L100,65 L120,68 L140,55 L160,60 L180,45 L200,50 L220,40 L240,42 L260,35 L280,38 L300,28 L320,32 L340,25 L360,20 L380,15 L400,10 L400,120 L0,120Z" fill="url(#cg)"/>
+              <path d="M0,90 L20,85 L40,88 L60,70 L80,75 L100,65 L120,68 L140,55 L160,60 L180,45 L200,50 L220,40 L240,42 L260,35 L280,38 L300,28 L320,32 L340,25 L360,20 L380,15 L400,10" fill="none" stroke="#2A4FFF" stroke-width="1.5"/>
+              <circle cx="300" cy="28" r="4" fill="#17C97A"/>
+              <circle cx="160" cy="60" r="4" fill="#FF4D4D"/>
+            </svg>
+          </div>
+          <div class="mockup-watchlist">
+            <div class="wl-item" style="background:rgba(23,201,122,0.07);border:1px solid rgba(23,201,122,0.18)"><span class="wl-pair">BTC/USDT</span><span class="wl-badge badge-long">LONG</span></div>
+            <div class="wl-item" style="background:rgba(255,77,77,0.07);border:1px solid rgba(255,77,77,0.18)"><span class="wl-pair">SOL/USDT</span><span class="wl-badge badge-short">SHORT</span></div>
+            <div class="wl-item" style="background:rgba(255,255,255,0.02);border:1px solid var(--border)"><span class="wl-pair">XRP/USDT</span><span class="wl-badge badge-watch">WATCHING</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-en="The process" data-el="Η διαδικασία">The process</p>
+    <h2 class="section-title fade-up" data-en="How Argos works" data-el="Πώς λειτουργεί το Argos">How Argos works</h2>
+    <div class="how-grid">
+      <div class="how-step fade-up">
+        <div class="step-num">01</div>
+        <div class="step-title" data-en="Add to watchlist" data-el="Πρόσθεσε στο watchlist">Add to watchlist</div>
+        <p class="step-desc" data-en="Choose the crypto pairs you want to monitor. Argos starts a dedicated background engine for each pair — scanning every 8 seconds, retraining the ML model every 15 minutes." data-el="Επίλεξε τα crypto pairs. Το Argos ξεκινά ξεχωριστό engine για κάθε pair — σκανάρει κάθε 8 δευτερόλεπτα, επανεκπαιδεύει το ML μοντέλο κάθε 15 λεπτά.">Choose the crypto pairs you want to monitor. Argos starts a dedicated background engine for each pair — scanning every 8 seconds, retraining the ML model every 15 minutes.</p>
+      </div>
+      <div class="how-step fade-up">
+        <div class="step-num">02</div>
+        <div class="step-title" data-en="Argos detects setups" data-el="Ανίχνευση θέσης">Argos detects setups</div>
+        <p class="step-desc" data-en="The system checks 5 conditions simultaneously: EMA trend, MACD momentum, RSI levels, Fibonacci proximity, and ML probability. All 5 must align before a position is flagged." data-el="Το σύστημα ελέγχει 5 συνθήκες ταυτόχρονα: τάση EMA, MACD momentum, επίπεδα RSI, εγγύτητα Fibonacci, και πιθανότητα ML. Και οι 5 πρέπει να ευθυγραμμιστούν.">The system checks 5 conditions simultaneously: EMA trend, MACD momentum, RSI levels, Fibonacci proximity, and ML probability. All 5 must align before a position is flagged.</p>
+      </div>
+      <div class="how-step fade-up">
+        <div class="step-num">03</div>
+        <div class="step-title" data-en="TP / SL managed automatically" data-el="Αυτόματη διαχείριση TP/SL">TP / SL managed automatically</div>
+        <p class="step-desc" data-en="Once a LONG or SHORT position is opened, Argos monitors it in real time. The position closes automatically when TP or SL is hit. One position at a time — disciplined by design." data-el="Μόλις ανοίξει μια LONG ή SHORT θέση, το Argos την παρακολουθεί σε πραγματικό χρόνο. Κλείνει αυτόματα όταν χτυπήσει TP ή SL.">Once a LONG or SHORT position is opened, Argos monitors it in real time. The position closes automatically when TP or SL is hit. One position at a time — disciplined by design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section id="strategy">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-en="The edge" data-el="Το πλεονέκτημα">The edge</p>
+    <h2 class="section-title fade-up" data-en="Strict. Consistent. Automated." data-el="Αυστηρή. Σταθερή. Αυτοματοποιημένη.">Strict. Consistent. Automated.</h2>
+    <div class="strategy-layout">
+      <div>
+        <div class="strategy-card fade-up">
+          <div class="strat-header"><div class="strat-icon long">▲</div><span class="strat-name long">LONG</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Take Profit" data-el="Κέρδος">Take Profit</span><span class="strat-val sv-g">+10.5% PnL</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Stop Loss"   data-el="Ζημία">Stop Loss</span><span class="strat-val sv-r">−5.4% PnL</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Leverage"    data-el="Μόχλευση">Leverage</span><span class="strat-val sv-b">3×</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Price move to TP" data-el="Κίνηση για TP">Price move to TP</span><span class="strat-val sv-g">+3.5%</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Price move to SL" data-el="Κίνηση για SL">Price move to SL</span><span class="strat-val sv-r">−1.8%</span></div>
+        </div>
+        <div class="strategy-card fade-up">
+          <div class="strat-header"><div class="strat-icon short">▼</div><span class="strat-name short">SHORT</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Take Profit"        data-el="Κέρδος">Take Profit</span><span class="strat-val sv-g">+10.5% PnL</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Stop Loss"          data-el="Ζημία">Stop Loss</span><span class="strat-val sv-r">−5.4% PnL</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Leverage"           data-el="Μόχλευση">Leverage</span><span class="strat-val sv-b">3×</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Timeframe"          data-el="Χρονικό πλαίσιο">Timeframe</span><span class="strat-val sv-b">30m</span></div>
+          <div class="strat-row"><span class="strat-key" data-en="Max open positions" data-el="Μέγιστες θέσεις">Max open positions</span><span class="strat-val sv-b">5 simultaneous</span></div>
+        </div>
+      </div>
+      <div class="strategy-text fade-up">
+        <h3 data-en="Five conditions. All must pass." data-el="Πέντε συνθήκες. Όλες πρέπει να περάσουν.">Five conditions.<br>All must pass.</h3>
+        <p data-en="Argos never guesses. Every position requires a full alignment of technical and statistical conditions before it is opened. Not discretionary — strictly systematic." data-el="Το Argos δεν μαντεύει. Κάθε θέση απαιτεί πλήρη ευθυγράμμιση τεχνικών και στατιστικών συνθηκών πριν ανοίξει. Όχι διακριτική — αυστηρά συστηματική.">Argos never guesses. Every position requires a full alignment of technical and statistical conditions before it is opened. Not discretionary — strictly systematic.</p>
+        <div class="strategy-pillars">
+          <div class="pillar"><div class="pillar-dot"></div><p class="pillar-text"><strong>EMA 50 / 200 trend filter</strong> — trade only in the direction of the dominant trend</p></div>
+          <div class="pillar"><div class="pillar-dot"></div><p class="pillar-text"><strong>MACD momentum confirmation</strong> — momentum must align with direction</p></div>
+          <div class="pillar"><div class="pillar-dot"></div><p class="pillar-text"><strong>RSI / Fibonacci proximity gate</strong> — only enter near key support/resistance</p></div>
+          <div class="pillar"><div class="pillar-dot"></div><p class="pillar-text"><strong>ML probability &gt; 52%</strong> — LightGBM model trained on live TP/SL outcomes</p></div>
+        </div>
+        <div class="no-advice-box">⚠ <span data-en="Argos identifies LONG and SHORT setups based on systematic rules. It does not advise you to buy or sell any asset. All decisions are yours alone." data-el="Το Argos εντοπίζει θέσεις LONG και SHORT βάσει συστηματικών κανόνων. Δεν σας συμβουλεύει να αγοράσετε ή να πουλήσετε.">Argos identifies LONG and SHORT setups based on systematic rules. It does not advise you to buy or sell any asset. All decisions are yours alone.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE -->
+<section id="course">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-en="Education" data-el="Εκπαίδευση">Education</p>
+    <h2 class="section-title fade-up" data-en="Master the strategy" data-el="Κατακτήστε τη στρατηγική">Master the strategy</h2>
+    <div class="course-layout">
+      <div class="course-modules fade-up">
+        <div class="module-item"><span class="module-num">01</span><div class="module-info"><div class="module-title" data-en="Introduction to systematic trading" data-el="Εισαγωγή στο συστηματικό trading">Introduction to systematic trading</div><div class="module-sub" data-en="Mindset, risk, and discipline" data-el="Νοοτροπία, ρίσκο, πειθαρχία">Mindset, risk, and discipline</div></div><div class="module-lock"><svg width="11" height="13" viewBox="0 0 12 14" fill="none"><rect x="1" y="6" width="10" height="8" rx="2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/><path d="M3 6V4a3 3 0 016 0v2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/></svg></div></div>
+        <div class="module-item"><span class="module-num">02</span><div class="module-info"><div class="module-title" data-en="Reading indicators: EMA, MACD, RSI" data-el="Ανάγνωση δεικτών: EMA, MACD, RSI">Reading indicators: EMA, MACD, RSI</div><div class="module-sub" data-en="How each filter works and why" data-el="Πώς λειτουργεί κάθε φίλτρο">How each filter works and why</div></div><div class="module-lock"><svg width="11" height="13" viewBox="0 0 12 14" fill="none"><rect x="1" y="6" width="10" height="8" rx="2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/><path d="M3 6V4a3 3 0 016 0v2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/></svg></div></div>
+        <div class="module-item"><span class="module-num">03</span><div class="module-info"><div class="module-title" data-en="Fibonacci &amp; key levels" data-el="Fibonacci &amp; βασικά επίπεδα">Fibonacci &amp; key levels</div><div class="module-sub" data-en="Support, resistance, entry zones" data-el="Support, resistance, ζώνες εισόδου">Support, resistance, entry zones</div></div><div class="module-lock"><svg width="11" height="13" viewBox="0 0 12 14" fill="none"><rect x="1" y="6" width="10" height="8" rx="2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/><path d="M3 6V4a3 3 0 016 0v2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/></svg></div></div>
+        <div class="module-item"><span class="module-num">04</span><div class="module-info"><div class="module-title" data-en="Understanding LONG &amp; SHORT" data-el="Κατανόηση LONG &amp; SHORT">Understanding LONG &amp; SHORT</div><div class="module-sub" data-en="Mechanics of leveraged positions" data-el="Μηχανισμός μοχλευμένων θέσεων">Mechanics of leveraged positions</div></div><div class="module-lock"><svg width="11" height="13" viewBox="0 0 12 14" fill="none"><rect x="1" y="6" width="10" height="8" rx="2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/><path d="M3 6V4a3 3 0 016 0v2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/></svg></div></div>
+        <div class="module-item"><span class="module-num">05</span><div class="module-info"><div class="module-title" data-en="TP, SL &amp; position sizing" data-el="TP, SL &amp; sizing θέσης">TP, SL &amp; position sizing</div><div class="module-sub" data-en="Risk management in practice" data-el="Διαχείριση ρίσκου στην πράξη">Risk management in practice</div></div><div class="module-lock"><svg width="11" height="13" viewBox="0 0 12 14" fill="none"><rect x="1" y="6" width="10" height="8" rx="2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/><path d="M3 6V4a3 3 0 016 0v2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/></svg></div></div>
+        <div class="module-item"><span class="module-num">06</span><div class="module-info"><div class="module-title" data-en="Using the Argos dashboard" data-el="Χρήση του dashboard Argos">Using the Argos dashboard</div><div class="module-sub" data-en="Live signals, backtest, interpretation" data-el="Live signals, backtest και ερμηνεία">Live signals, backtest, interpretation</div></div><div class="module-lock"><svg width="11" height="13" viewBox="0 0 12 14" fill="none"><rect x="1" y="6" width="10" height="8" rx="2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/><path d="M3 6V4a3 3 0 016 0v2" stroke="rgba(232,234,240,0.28)" stroke-width="1.2"/></svg></div></div>
+      </div>
+      <div class="course-text fade-up">
+        <h3 data-en="6 modules. Video + analysis. Private platform only." data-el="6 ενότητες. Βίντεο + ανάλυση. Μόνο private πλατφόρμα.">6 modules.<br>Video + analysis.<br>Private platform only.</h3>
+        <p data-en="The Argos course teaches you how to read the market the way the system does — not what to trade, but how to think about structure, confirmation, and risk." data-el="Το course του Argos σε διδάσκει να διαβάζεις την αγορά όπως το σύστημα — όχι τι να κάνεις trade, αλλά πώς να σκέφτεσαι για δομή, επιβεβαίωση και ρίσκο.">The Argos course teaches you how to read the market the way the system does — not what to trade, but how to think about structure, confirmation, and risk.</p>
+        <div class="course-features">
+          <div class="course-feat"><div class="feat-check"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#17C97A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-en="Video lessons" data-el="Βίντεο μαθήματα">Video lessons</span></div>
+          <div class="course-feat"><div class="feat-check"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#17C97A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-en="Chart analysis" data-el="Ανάλυση γραφημάτων">Chart analysis</span></div>
+          <div class="course-feat"><div class="feat-check"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#17C97A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-en="No download" data-el="Χωρίς λήψη">No download</span></div>
+          <div class="course-feat"><div class="feat-check"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#17C97A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-en="Screen-protected" data-el="Προστασία οθόνης">Screen-protected</span></div>
+          <div class="course-feat"><div class="feat-check"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#17C97A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-en="Members only" data-el="Μόνο για μέλη">Members only</span></div>
+          <div class="course-feat"><div class="feat-check"><svg width="9" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#17C97A" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-en="Always updated" data-el="Πάντα ενημερωμένο">Always updated</span></div>
+        </div>
+        <div class="course-lock-note">
+          <svg width="15" height="17" viewBox="0 0 16 18" fill="none"><rect x="1" y="8" width="14" height="10" rx="3" stroke="#7B9FFF" stroke-width="1.3"/><path d="M4 8V6a4 4 0 018 0v2" stroke="#7B9FFF" stroke-width="1.3"/><circle cx="8" cy="13" r="1.5" fill="#7B9FFF"/></svg>
+          <span data-en="Course access is included with your Argos account. Log in to unlock all 6 modules." data-el="Η πρόσβαση στο course περιλαμβάνεται στον λογαριασμό Argos. Συνδεθείτε για να ξεκλειδώσετε και τις 6 ενότητες.">Course access is included with your Argos account. Log in to unlock all 6 modules.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="community">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-en="Community" data-el="Κοινότητα">Community</p>
+    <h2 class="section-title fade-up" data-en="What members say" data-el="Τι λένε τα μέλη">What members say</h2>
+    <div class="testi-grid">
+      <div class="testi-card fade-up">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-en='"The strict TP/SL system finally removed emotions from my trading. I know exactly what to expect from every position before it opens."' data-el='"Το αυστηρό σύστημα TP/SL αφαίρεσε επιτέλους τα συναισθήματα. Ξέρω ακριβώς τι να περιμένω από κάθε θέση."'>"The strict TP/SL system finally removed emotions from my trading. I know exactly what to expect from every position before it opens."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:rgba(42,79,255,0.18);color:#7B9FFF">NK</div><div><div class="testi-name">Nikos K.</div><div class="testi-role" data-en="Member since 2026" data-el="Μέλος από το 2026">Member since 2026</div></div></div>
+      </div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-en='"I went through the course first, then started using the dashboard. Understanding the logic behind the signals makes everything click."' data-el='"Πέρασα πρώτα το course και μετά ξεκίνησα το dashboard. Η κατανόηση της λογικής κάνει τα πάντα να έχουν νόημα."'>"I went through the course first, then started using the dashboard. Understanding the logic behind the signals makes everything click."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:rgba(23,201,122,0.14);color:#17C97A">DM</div><div><div class="testi-name">Dimitris M.</div><div class="testi-role" data-en="Member since 2026" data-el="Μέλος από το 2026">Member since 2026</div></div></div>
+      </div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" data-en='"What I appreciate most is the transparency — it tells you exactly why a LONG or SHORT was flagged, with all conditions visible."' data-el='"Αυτό που εκτιμώ περισσότερο είναι η διαφάνεια — σου λέει ακριβώς γιατί σημάνθηκε ένα LONG ή SHORT."'>"What I appreciate most is the transparency — it tells you exactly why a LONG or SHORT was flagged, with all conditions visible."</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:rgba(245,166,35,0.14);color:#F5A623">AP</div><div><div class="testi-name">Anna P.</div><div class="testi-role" data-en="Member since 2026" data-el="Μέλος από το 2026">Member since 2026</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-en="Questions" data-el="Ερωτήσεις">Questions</p>
+    <h2 class="section-title fade-up" data-en="Frequently asked" data-el="Συχνές ερωτήσεις">Frequently asked</h2>
+    <div class="faq-list">
+      <div class="faq-item fade-up"><div class="faq-q" onclick="toggleFaq(this)"><span data-en="Is this financial advice?" data-el="Αυτό είναι οικονομική συμβουλή;">Is this financial advice?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-en="No. Argos is an analytical and educational platform. It identifies systematic LONG and SHORT setups based on technical and statistical conditions. It does not recommend buying or selling any asset. All trading decisions are your own responsibility." data-el="Όχι. Το Argos είναι αναλυτική και εκπαιδευτική πλατφόρμα. Εντοπίζει συστηματικές θέσεις LONG και SHORT βάσει τεχνικών και στατιστικών συνθηκών. Δεν προτείνει αγορά ή πώληση.">No. Argos is an analytical and educational platform. It identifies systematic LONG and SHORT setups based on technical and statistical conditions. It does not recommend buying or selling any asset. All trading decisions are your own responsibility.</div></div>
+      <div class="faq-item fade-up"><div class="faq-q" onclick="toggleFaq(this)"><span data-en="Does it trade for me automatically?" data-el="Κάνει trade αυτόματα για μένα;">Does it trade for me automatically?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-en="No. Argos monitors markets and identifies setups. It does not connect to any exchange or execute trades on your behalf. You decide what to do with the signals." data-el="Όχι. Το Argos παρακολουθεί αγορές και εντοπίζει θέσεις. Δεν συνδέεται με κανένα exchange και δεν εκτελεί trades για λογαριασμό σας.">No. Argos monitors markets and identifies setups. It does not connect to any exchange or execute trades on your behalf. You decide what to do with the signals.</div></div>
+      <div class="faq-item fade-up"><div class="faq-q" onclick="toggleFaq(this)"><span data-en="Can I download the course?" data-el="Μπορώ να κατεβάσω το course;">Can I download the course?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-en="No. The course is hosted exclusively on the private Argos platform. Videos cannot be downloaded or screen-recorded. Access requires an active account." data-el="Όχι. Το course φιλοξενείται αποκλειστικά στην private πλατφόρμα Argos. Τα βίντεο δεν μπορούν να ληφθούν ή να εγγραφούν.">No. The course is hosted exclusively on the private Argos platform. Videos cannot be downloaded or screen-recorded. Access requires an active account.</div></div>
+      <div class="faq-item fade-up"><div class="faq-q" onclick="toggleFaq(this)"><span data-en="What does 10.5% TP / 5.4% SL mean?" data-el="Τι σημαίνει 10.5% TP / 5.4% SL;">What does 10.5% TP / 5.4% SL mean?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-en="With 3x leverage: Take Profit is +10.5% PnL (price moves +3.5% in your favor), Stop Loss is −5.4% PnL (price moves −1.8% against you). Fixed levels set from the entry price of each position." data-el="Με 3x leverage: το Take Profit είναι +10.5% PnL (η τιμή κινείται +3.5% υπέρ σας), το Stop Loss είναι −5.4% PnL (η τιμή κινείται −1.8% εναντίον σας). Σταθερά επίπεδα από την τιμή εισόδου κάθε θέσης.">With 3x leverage: Take Profit is +10.5% PnL (price moves +3.5% in your favor), Stop Loss is −5.4% PnL (price moves −1.8% against you). Fixed levels set from the entry price of each position.</div></div>
+      <div class="faq-item fade-up"><div class="faq-q" onclick="toggleFaq(this)"><span data-en="Which exchanges / pairs does it support?" data-el="Ποια exchanges / pairs υποστηρίζει;">Which exchanges / pairs does it support?</span><span class="faq-arrow">+</span></div><div class="faq-a" data-en="Argos currently uses Binance market data. You can monitor any active trading pair available on Binance — from BTC/USDT to smaller altcoins." data-el="Το Argos χρησιμοποιεί δεδομένα από το Binance. Μπορείτε να παρακολουθείτε οποιοδήποτε ενεργό trading pair στο Binance.">Argos currently uses Binance market data. You can monitor any active trading pair available on Binance — from BTC/USDT to smaller altcoins.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-en="Get in touch" data-el="Επικοινωνία">Get in touch</p>
+    <h2 class="section-title fade-up" data-en="Send us a message" data-el="Στείλτε μας μήνυμα">Send us a message</h2>
+    <div class="contact-layout">
+      <div class="contact-info fade-up">
+        <h3 data-en="Have a question?" data-el="Έχεις ερώτηση;">Have a question?</h3>
+        <p data-en="Whether you want to learn more about Argos, the course, or the strategy — send us a message and we'll get back to you." data-el="Είτε θέλεις να μάθεις περισσότερα για το Argos, το course ή τη στρατηγική — στείλε μας μήνυμα και θα επικοινωνήσουμε μαζί σου.">Whether you want to learn more about Argos, the course, or the strategy — send us a message and we'll get back to you.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🔒</div>
+          <span data-en="We never share your data." data-el="Δεν μοιραζόμαστε ποτέ τα δεδομένα σας.">We never share your data.</span>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <div class="form-row">
+          <div class="form-group"><label data-en="Name" data-el="Όνομα">Name</label><input type="text" id="f-name" placeholder="John Doe"></div>
+          <div class="form-group"><label data-en="Email" data-el="Email">Email</label><input type="email" id="f-email" placeholder="you@email.com"></div>
+        </div>
+        <div class="form-group"><label data-en="Subject" data-el="Θέμα">Subject</label><input type="text" id="f-subject" placeholder="e.g. Question about the course"></div>
+        <div class="form-group"><label data-en="Message" data-el="Μήνυμα">Message</label><textarea id="f-message" placeholder="Tell us what you'd like to know..."></textarea></div>
+        <button class="btn-submit" onclick="submitForm()" data-en="Send message →" data-el="Αποστολή μηνύματος →">Send message →</button>
+        <div class="form-success" id="form-success">✓ <span data-en="Message sent! We'll be in touch soon." data-el="Το μήνυμα στάλθηκε! Θα επικοινωνήσουμε σύντομα.">Message sent! We'll be in touch soon.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <div class="footer-logo">
+          <svg width="24" height="24" viewBox="0 0 26 26" fill="none"><ellipse cx="13" cy="13" rx="10" ry="6.5" stroke="rgba(62,140,255,0.7)" stroke-width="1.1"/><circle cx="13" cy="13" r="3.6" fill="rgba(39,76,255,0.55)" stroke="rgba(62,140,255,0.85)" stroke-width="0.8"/><circle cx="13" cy="13" r="1.7" fill="rgba(190,215,255,0.9)"/></svg>
+          <span class="footer-name">ARGOS</span>
+        </div>
+        <p class="footer-slogan" data-en="— when data meets decision" data-el="— όταν τα δεδομένα συναντούν την απόφαση">— when data meets decision</p>
+        <p class="footer-desc" data-en="Systematic crypto market analysis powered by technical indicators and machine learning. 24/7 LONG & SHORT signal detection." data-el="Συστηματική ανάλυση αγορών κρυπτονομισμάτων με τεχνικούς δείκτες και μηχανική μάθηση.">Systematic crypto market analysis powered by technical indicators and machine learning. 24/7 LONG &amp; SHORT signal detection.</p>
+        <p class="footer-disclaimer" data-en="Argos does not provide financial, investment, or trading advice. All content is for educational and informational purposes only. Past performance does not guarantee future results." data-el="Το Argos δεν παρέχει οικονομικές ή επενδυτικές συμβουλές. Όλο το περιεχόμενο είναι αποκλειστικά για εκπαιδευτικούς σκοπούς.">Argos does not provide financial, investment, or trading advice. All content is for educational and informational purposes only. Past performance does not guarantee future results.</p>
+      </div>
+      <div>
+        <p class="footer-col-title" data-en="Company" data-el="Εταιρεία">Company</p>
+        <ul class="footer-links">
+          <li><a href="#community" data-en="Community" data-el="Κοινότητα">Community</a></li>
+          <li><a href="#faq"          data-en="FAQ"       data-el="Ερωτήσεις">FAQ</a></li>
+          <li><a href="#contact"      data-en="Contact"   data-el="Επικοινωνία">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title" data-en="Legal" data-el="Νομικά">Legal</p>
+        <ul class="footer-links">
+          <li><a href="#" onclick="openModal('modal-terms');return false;"      data-en="Terms of use"   data-el="Όροι χρήσης">Terms of use</a></li>
+          <li><a href="#" onclick="openModal('modal-privacy');return false;"    data-en="Privacy policy" data-el="Πολιτική απορρήτου">Privacy policy</a></li>
+          <li><a href="#" onclick="openModal('modal-disclaimer');return false;" data-en="Disclaimer"     data-el="Αποποίηση ευθύνης">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Argos. <span data-en="All rights reserved." data-el="Όλα τα δικαιώματα διατηρούνται.">All rights reserved.</span></span>
+      <span data-en="Not financial advice." data-el="Δεν αποτελεί οικονομική συμβουλή.">Not financial advice.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =====================================================
+     LEGAL MODALS
+====================================================== -->
+
+<!-- TERMS OF USE -->
+<div class="legal-modal" id="modal-terms" role="dialog" aria-modal="true" aria-labelledby="modal-terms-title">
+  <div class="legal-modal-box">
+    <div class="legal-modal-header">
+      <h2 id="modal-terms-title" data-en="Terms of Use" data-el="Όροι Χρήσης">Terms of Use</h2>
+      <button class="legal-modal-close" onclick="closeModal('modal-terms')" aria-label="Close">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p class="legal-updated" data-en="Last updated: January 2025" data-el="Τελευταία ενημέρωση: Ιανουάριος 2025">Last updated: January 2025</p>
+      <h3 data-en="1. Acceptance of Terms" data-el="1. Αποδοχή Όρων">1. Acceptance of Terms</h3>
+      <p data-en="By accessing or using the Argos platform, you agree to be bound by these Terms of Use. If you do not agree with any part of these terms, you must not use the platform." data-el="Με την πρόσβαση ή χρήση της πλατφόρμας Argos, αποδέχεστε τους παρόντες Όρους Χρήσης. Εάν διαφωνείτε με οποιοδήποτε μέρος τους, δεν πρέπει να χρησιμοποιείτε την πλατφόρμα.">By accessing or using the Argos platform, you agree to be bound by these Terms of Use. If you do not agree with any part of these terms, you must not use the platform.</p>
+      <h3 data-en="2. Nature of the Service" data-el="2. Φύση της Υπηρεσίας">2. Nature of the Service</h3>
+      <p data-en="Argos is an analytical and educational platform that provides automated market signals based on technical indicators and statistical models. The platform does not constitute an investment firm, portfolio manager, or financial advisor under MiFID II (Directive 2014/65/EU) or any applicable Greek or EU legislation." data-el="Το Argos είναι αναλυτική και εκπαιδευτική πλατφόρμα που παρέχει αυτοματοποιημένα σήματα αγοράς βάσει τεχνικών δεικτών και στατιστικών μοντέλων. Η πλατφόρμα δεν αποτελεί επιχείρηση επενδύσεων, διαχειριστή χαρτοφυλακίου ή χρηματοοικονομικό σύμβουλο κατά την έννοια της MiFID II ή της ισχύουσας ελληνικής και ευρωπαϊκής νομοθεσίας.">Argos is an analytical and educational platform that provides automated market signals based on technical indicators and statistical models. The platform does not constitute an investment firm, portfolio manager, or financial advisor under MiFID II (Directive 2014/65/EU) or any applicable Greek or EU legislation.</p>
+      <h3 data-en="3. Eligibility" data-el="3. Προϋποθέσεις Χρήσης">3. Eligibility</h3>
+      <p data-en="You must be at least 18 years of age to use Argos. By using the platform, you represent that you meet this requirement and that you are legally permitted to engage with financial market data in your jurisdiction." data-el="Πρέπει να είστε τουλάχιστον 18 ετών για να χρησιμοποιήσετε το Argos. Με τη χρήση της πλατφόρμας, δηλώνετε ότι πληροίτε αυτή την προϋπόθεση και ότι έχετε νόμιμο δικαίωμα πρόσβασης σε χρηματοοικονομικά δεδομένα αγοράς στη δικαιοδοσία σας.">You must be at least 18 years of age to use Argos. By using the platform, you represent that you meet this requirement and that you are legally permitted to engage with financial market data in your jurisdiction.</p>
+      <h3 data-en="4. Prohibited Uses" data-el="4. Απαγορευμένες Χρήσεις">4. Prohibited Uses</h3>
+      <p data-en="You may not: (a) redistribute, resell, or sublicense any signals or content; (b) reverse-engineer, scrape, or copy platform data; (c) use the platform for any unlawful purpose; (d) share your account credentials with third parties." data-el="Δεν επιτρέπεται: (α) η αναδιανομή, μεταπώληση ή υπαδειοδότηση σημάτων ή περιεχομένου· (β) η αντίστροφη μηχανική, scraping ή αντιγραφή δεδομένων· (γ) η χρήση για παράνομους σκοπούς· (δ) η κοινοποίηση διαπιστευτηρίων λογαριασμού σε τρίτους.">You may not: (a) redistribute, resell, or sublicense any signals or content; (b) reverse-engineer, scrape, or copy platform data; (c) use the platform for any unlawful purpose; (d) share your account credentials with third parties.</p>
+      <h3 data-en="5. Intellectual Property" data-el="5. Πνευματική Ιδιοκτησία">5. Intellectual Property</h3>
+      <p data-en="All content, algorithms, designs, and materials on the Argos platform are the exclusive property of Argos and are protected by applicable intellectual property laws. Unauthorized reproduction is strictly prohibited." data-el="Όλο το περιεχόμενο, οι αλγόριθμοι, τα σχέδια και τα υλικά της πλατφόρμας Argos αποτελούν αποκλειστική ιδιοκτησία του Argos και προστατεύονται από την ισχύουσα νομοθεσία πνευματικής ιδιοκτησίας.">All content, algorithms, designs, and materials on the Argos platform are the exclusive property of Argos and are protected by applicable intellectual property laws. Unauthorized reproduction is strictly prohibited.</p>
+      <h3 data-en="6. Limitation of Liability" data-el="6. Περιορισμός Ευθύνης">6. Limitation of Liability</h3>
+      <p data-en="To the maximum extent permitted by law, Argos shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of the platform or reliance on its signals." data-el="Στον μέγιστο βαθμό που επιτρέπει ο νόμος, το Argos δεν ευθύνεται για άμεσες, έμμεσες, τυχαίες ή επακόλουθες ζημίες που προκύπτουν από τη χρήση της πλατφόρμας ή την εξάρτηση από τα σήματά της.">To the maximum extent permitted by law, Argos shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of the platform or reliance on its signals.</p>
+      <h3 data-en="7. Governing Law" data-el="7. Εφαρμοστέο Δίκαιο">7. Governing Law</h3>
+      <p data-en="These Terms are governed by the laws of the Hellenic Republic. Any disputes shall be subject to the exclusive jurisdiction of the courts of Thessaloniki, Greece." data-el="Οι παρόντες Όροι διέπονται από το δίκαιο της Ελληνικής Δημοκρατίας. Κάθε διαφορά υπάγεται στην αποκλειστική αρμοδιότητα των δικαστηρίων Θεσσαλονίκης.">These Terms are governed by the laws of the Hellenic Republic. Any disputes shall be subject to the exclusive jurisdiction of the courts of Thessaloniki, Greece.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY POLICY -->
+<div class="legal-modal" id="modal-privacy" role="dialog" aria-modal="true" aria-labelledby="modal-privacy-title">
+  <div class="legal-modal-box">
+    <div class="legal-modal-header">
+      <h2 id="modal-privacy-title" data-en="Privacy Policy" data-el="Πολιτική Απορρήτου">Privacy Policy</h2>
+      <button class="legal-modal-close" onclick="closeModal('modal-privacy')" aria-label="Close">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p class="legal-updated" data-en="Last updated: January 2025" data-el="Τελευταία ενημέρωση: Ιανουάριος 2025">Last updated: January 2025</p>
+      <h3 data-en="1. Data Controller" data-el="1. Υπεύθυνος Επεξεργασίας">1. Data Controller</h3>
+      <p data-en="Argos is the data controller for personal data collected through this platform, in accordance with Regulation (EU) 2016/679 (GDPR) and Greek Law 4624/2019." data-el="Το Argos είναι υπεύθυνος επεξεργασίας των προσωπικών δεδομένων που συλλέγονται μέσω της πλατφόρμας, σύμφωνα με τον Κανονισμό (ΕΕ) 2016/679 (ΓΚΠΔ) και τον Ν. 4624/2019.">Argos is the data controller for personal data collected through this platform, in accordance with Regulation (EU) 2016/679 (GDPR) and Greek Law 4624/2019.</p>
+      <h3 data-en="2. Data We Collect" data-el="2. Δεδομένα που Συλλέγουμε">2. Data We Collect</h3>
+      <p data-en="We may collect: (a) contact information you provide (name, email) via the contact form; (b) technical data such as IP address, browser type, and usage patterns for security and analytics purposes. We do not collect payment card data directly." data-el="Συλλέγουμε: (α) στοιχεία επικοινωνίας που παρέχετε (όνομα, email) μέσω της φόρμας επικοινωνίας· (β) τεχνικά δεδομένα όπως IP, τύπος προγράμματος περιήγησης και μοτίβα χρήσης για λόγους ασφάλειας και αναλυτικής. Δεν συλλέγουμε απευθείας στοιχεία καρτών πληρωμής.">We may collect: (a) contact information you provide (name, email) via the contact form; (b) technical data such as IP address, browser type, and usage patterns for security and analytics purposes. We do not collect payment card data directly.</p>
+      <h3 data-en="3. Legal Basis for Processing" data-el="3. Νομική Βάση Επεξεργασίας">3. Legal Basis for Processing</h3>
+      <p data-en="Processing is based on: (a) your consent, where explicitly given; (b) the performance of a contract or pre-contractual steps; (c) our legitimate interests in operating and securing the platform; (d) compliance with legal obligations." data-el="Η επεξεργασία βασίζεται σε: (α) τη συγκατάθεσή σας, όπου δίνεται ρητά· (β) εκτέλεση σύμβασης ή προσυμβατικά βήματα· (γ) τα έννομα συμφέροντά μας για τη λειτουργία και ασφάλεια της πλατφόρμας· (δ) συμμόρφωση με νομικές υποχρεώσεις.">Processing is based on: (a) your consent, where explicitly given; (b) the performance of a contract or pre-contractual steps; (c) our legitimate interests in operating and securing the platform; (d) compliance with legal obligations.</p>
+      <h3 data-en="4. Data Retention" data-el="4. Διατήρηση Δεδομένων">4. Data Retention</h3>
+      <p data-en="We retain personal data only as long as necessary for the purposes described, or as required by applicable law. Contact form submissions are retained for up to 24 months." data-el="Διατηρούμε προσωπικά δεδομένα μόνο για όσο διάστημα είναι αναγκαίο για τους σκοπούς που περιγράφονται ή όσο ορίζει ο νόμος. Τα μηνύματα φόρμας επικοινωνίας διατηρούνται έως 24 μήνες.">We retain personal data only as long as necessary for the purposes described, or as required by applicable law. Contact form submissions are retained for up to 24 months.</p>
+      <h3 data-en="5. Your Rights (GDPR)" data-el="5. Τα Δικαιώματά σας (ΓΚΠΔ)">5. Your Rights (GDPR)</h3>
+      <p data-en="Under the GDPR, you have the right to: access, rectify, or erase your personal data; restrict or object to processing; data portability; and to lodge a complaint with the Hellenic Data Protection Authority (HDPA — www.dpa.gr)." data-el="Βάσει του ΓΚΠΔ, έχετε δικαίωμα πρόσβασης, διόρθωσης, διαγραφής, περιορισμού ή αντίταξης στην επεξεργασία, φορητότητας δεδομένων και υποβολής καταγγελίας στην Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα (ΑΠΔΠΧ — www.dpa.gr).">Under the GDPR, you have the right to: access, rectify, or erase your personal data; restrict or object to processing; data portability; and to lodge a complaint with the Hellenic Data Protection Authority (HDPA — www.dpa.gr).</p>
+      <h3 data-en="6. Third-Party Services" data-el="6. Υπηρεσίες Τρίτων">6. Υπηρεσίες Τρίτων</h3>
+      <p data-en="The platform uses market data provided by Binance via their public API. No personal data is transmitted to Binance. If EmailJS is used for contact form delivery, message content is processed in accordance with EmailJS's own privacy policy." data-el="Η πλατφόρμα χρησιμοποιεί δεδομένα αγοράς από το Binance μέσω δημόσιου API. Δεν διαβιβάζονται προσωπικά δεδομένα στο Binance. Εάν χρησιμοποιείται EmailJS για αποστολή φόρμας, το περιεχόμενο επεξεργάζεται σύμφωνα με την ιδιωτική πολιτική του EmailJS.">The platform uses market data provided by Binance via their public API. No personal data is transmitted to Binance. If EmailJS is used for contact form delivery, message content is processed in accordance with EmailJS's own privacy policy.</p>
+      <h3 data-en="7. Contact" data-el="7. Επικοινωνία">7. Επικοινωνία</h3>
+      <p data-en="For any privacy-related request, contact us at: miliadisili@yahoo.gr" data-el="Για οποιοδήποτε αίτημα σχετικό με απόρρητο, επικοινωνήστε στο: miliadisili@yahoo.gr">For any privacy-related request, contact us at: miliadisili@yahoo.gr</p>
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="legal-modal" id="modal-disclaimer" role="dialog" aria-modal="true" aria-labelledby="modal-disclaimer-title">
+  <div class="legal-modal-box">
+    <div class="legal-modal-header">
+      <h2 id="modal-disclaimer-title" data-en="Disclaimer" data-el="Αποποίηση Ευθύνης">Disclaimer</h2>
+      <button class="legal-modal-close" onclick="closeModal('modal-disclaimer')" aria-label="Close">✕</button>
+    </div>
+    <div class="legal-modal-body">
+      <p class="legal-updated" data-en="Last updated: January 2025" data-el="Τελευταία ενημέρωση: Ιανουάριος 2025">Last updated: January 2025</p>
+      <h3 data-en="Not Financial Advice" data-el="Δεν αποτελεί Οικονομική Συμβουλή">Not Financial Advice</h3>
+      <p data-en="All content, signals, analysis, and educational material provided by Argos are for informational and educational purposes only. Nothing on this platform constitutes financial, investment, trading, or any other form of regulated advice within the meaning of MiFID II or applicable Greek law." data-el="Όλο το περιεχόμενο, τα σήματα, οι αναλύσεις και το εκπαιδευτικό υλικό που παρέχει το Argos είναι αποκλειστικά για ενημερωτικούς και εκπαιδευτικούς σκοπούς. Τίποτα στην πλατφόρμα δεν συνιστά οικονομική, επενδυτική ή άλλη μορφή ρυθμιζόμενης συμβουλής κατά την έννοια της MiFID II ή της ισχύουσας ελληνικής νομοθεσίας.">All content, signals, analysis, and educational material provided by Argos are for informational and educational purposes only. Nothing on this platform constitutes financial, investment, trading, or any other form of regulated advice within the meaning of MiFID II or applicable Greek law.</p>
+      <h3 data-en="Risk Warning" data-el="Προειδοποίηση Κινδύνου">Risk Warning</h3>
+      <p data-en="Trading and investing in cryptocurrencies and other financial instruments involves substantial risk of loss, including the possible loss of the entire amount invested. Leveraged products amplify both gains and losses. You should not invest money you cannot afford to lose." data-el="Το trading και η επένδυση σε κρυπτονομίσματα και άλλα χρηματοοικονομικά μέσα ενέχουν σημαντικό κίνδυνο απώλειας, συμπεριλαμβανομένης της πλήρους απώλειας του επενδεδυμένου κεφαλαίου. Τα μοχλευμένα προϊόντα πολλαπλασιάζουν τόσο τα κέρδη όσο και τις ζημίες. Δεν πρέπει να επενδύετε χρήματα που δεν μπορείτε να χάσετε.">Trading and investing in cryptocurrencies and other financial instruments involves substantial risk of loss, including the possible loss of the entire amount invested. Leveraged products amplify both gains and losses. You should not invest money you cannot afford to lose.</p>
+      <h3 data-en="Automated Signals" data-el="Αυτοματοποιημένα Σήματα">Automated Signals</h3>
+      <p data-en="Argos signals are generated by algorithms based on technical indicators and machine learning models. They are automated system outputs and do not represent the opinion of any human analyst or financial professional. Signals may be incorrect, delayed, or unavailable at any time." data-el="Τα σήματα του Argos παράγονται από αλγορίθμους βασισμένους σε τεχνικούς δείκτες και μοντέλα μηχανικής μάθησης. Αποτελούν αυτοματοποιημένες εξόδους συστήματος και δεν εκφράζουν γνώμη ανθρώπινου αναλυτή ή χρηματοοικονομικού επαγγελματία. Τα σήματα ενδέχεται να είναι εσφαλμένα, καθυστερημένα ή μη διαθέσιμα ανά πάσα στιγμή.">Argos signals are generated by algorithms based on technical indicators and machine learning models. They are automated system outputs and do not represent the opinion of any human analyst or financial professional. Signals may be incorrect, delayed, or unavailable at any time.</p>
+      <h3 data-en="Past Performance" data-el="Παρελθοντική Απόδοση">Past Performance</h3>
+      <p data-en="Past performance, backtested results, or historical win rates displayed on this platform do not guarantee future results. Market conditions change, and no system can predict future price movements with certainty." data-el="Η παρελθοντική απόδοση, τα αποτελέσματα backtesting ή τα ιστορικά ποσοστά επιτυχίας που εμφανίζονται στην πλατφόρμα δεν εγγυώνται μελλοντικά αποτελέσματα. Οι συνθήκες αγοράς αλλάζουν και κανένα σύστημα δεν μπορεί να προβλέψει με βεβαιότητα τις μελλοντικές κινήσεις τιμών.">Past performance, backtested results, or historical win rates displayed on this platform do not guarantee future results. Market conditions change, and no system can predict future price movements with certainty.</p>
+      <h3 data-en="Your Responsibility" data-el="Ευθύνη Χρήστη">Your Responsibility</h3>
+      <p data-en="All trading and investment decisions are solely your responsibility. Argos accepts no liability for any losses or damages resulting from decisions made in reliance on platform content. You are strongly encouraged to seek independent financial advice before making any investment decisions." data-el="Όλες οι αποφάσεις trading και επένδυσης αποτελούν αποκλειστικά δική σας ευθύνη. Το Argos δεν αναλαμβάνει καμία ευθύνη για απώλειες ή ζημίες που προκύπτουν από αποφάσεις βασισμένες στο περιεχόμενο της πλατφόρμας. Συνιστάται ανεπιφύλακτα να αναζητάτε ανεξάρτητη χρηματοοικονομική συμβουλή πριν από οποιαδήποτε επένδυση.">All trading and investment decisions are solely your responsibility. Argos accepts no liability for any losses or damages resulting from decisions made in reliance on platform content. You are strongly encouraged to seek independent financial advice before making any investment decisions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL STYLES -->
+<style>
+.legal-modal {
+  display: flex; position: fixed; inset: 0; z-index: 500;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.legal-modal.open { opacity: 1; visibility: visible; pointer-events: auto; }
+.legal-modal-box {
+  background: #0B0F1C; border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 20px; width: 100%; max-width: 680px;
+  max-height: 82vh; display: flex; flex-direction: column;
+  transform: translateY(16px);
+  transition: transform 0.25s ease;
+  overflow: hidden;
+}
+.legal-modal.open .legal-modal-box { transform: translateY(0); }
+.legal-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px; border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.legal-modal-header h2 {
+  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700;
+  color: #E8EAF0; letter-spacing: -0.3px;
+}
+.legal-modal-close {
+  width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04); color: rgba(232,234,240,0.5);
+  cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.legal-modal-close:hover { background: rgba(255,255,255,0.09); color: #E8EAF0; }
+.legal-modal-body {
+  overflow-y: auto; padding: 28px 28px 32px; flex: 1;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
+.legal-modal-body h3 {
+  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+  color: rgba(123,159,255,0.9); text-transform: uppercase; letter-spacing: 1px;
+  margin: 24px 0 8px;
+}
+.legal-modal-body h3:first-of-type { margin-top: 8px; }
+.legal-modal-body p { font-size: 14px; color: rgba(232,234,240,0.6); line-height: 1.8; }
+.legal-updated { font-size: 11px !important; color: rgba(232,234,240,0.28) !important; margin-bottom: 4px; }
+@media (max-width: 600px) {
+  .legal-modal-box { border-radius: 16px; max-height: 88vh; }
+  .legal-modal-header { padding: 18px 20px; }
+  .legal-modal-body { padding: 20px 20px 28px; }
+}
+</style>
+
+<!-- MODAL JS -->
+<script>
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.legal-modal').forEach(modal => {
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeModal(modal.id);
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.legal-modal.open').forEach(m => closeModal(m.id));
+  }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('e_A8KgVIdD5tfPad5');</script>
+<script src="app.js"></script>
+</body>
+</html>
